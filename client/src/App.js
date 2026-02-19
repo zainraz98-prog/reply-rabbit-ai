@@ -5,7 +5,10 @@ import Dashboard from './pages/Dashboard';
 import Training from './pages/Training';
 import { Ticket, Bot, Settings, Zap, LayoutDashboard, ChevronRight } from 'lucide-react';
 
-// This component makes the links change color when you are on that page
+// 1. ADD YOUR RAILWAY URL HERE
+// Replace the link below with the ACTUAL "Domain" Railway gave you in the settings tab
+const RAILWAY_API_URL = "reply-rabbit-ai-production.up.railway.app"; 
+
 const SidebarLink = ({ to, icon: Icon, label }) => {
   const location = useLocation();
   const isActive = location.pathname === to;
@@ -35,7 +38,6 @@ function App() {
         
         {/* SIDEBAR */}
         <aside className="w-72 bg-slate-50/50 backdrop-blur-xl border-r border-slate-200/60 p-6 flex flex-col relative">
-          {/* Brand Logo */}
           <div className="flex items-center gap-3 mb-12 px-2">
             <div className="relative">
               <div className="absolute inset-0 bg-orange-400 blur-lg opacity-40 rounded-full"></div>
@@ -49,14 +51,12 @@ function App() {
             </div>
           </div>
 
-          {/* Nav Links */}
           <nav className="space-y-2 flex-1">
             <p className="px-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-4">Main Menu</p>
             <SidebarLink to="/" icon={LayoutDashboard} label="Support Inbox" />
             <SidebarLink to="/training" icon={Bot} label="AI Training" />
           </nav>
 
-          {/* Bottom Profile Card */}
           <div className="mt-auto pt-6 border-t border-slate-200/60">
             <div className="bg-white/80 border border-white p-4 rounded-3xl shadow-sm flex items-center gap-3">
               <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-slate-800 to-slate-600 flex items-center justify-center text-white font-bold text-sm shadow-inner">
@@ -76,14 +76,14 @@ function App() {
 
         {/* MAIN CONTENT AREA */}
         <main className="flex-1 overflow-y-auto relative bg-[#f8fafc]">
-          {/* Subtle Decorative Blobs */}
           <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-orange-100/40 blur-[120px] rounded-full -z-10"></div>
           <div className="absolute bottom-[-10%] left-[-10%] w-[30%] h-[30%] bg-blue-100/30 blur-[100px] rounded-full -z-10"></div>
           
           <div className="p-8 lg:p-12 max-w-7xl mx-auto">
             <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/training" element={<Training />} />
+              {/* 2. PASS THE URL AS A PROP TO YOUR PAGES */}
+              <Route path="/" element={<Dashboard apiUrl={RAILWAY_API_URL} />} />
+              <Route path="/training" element={<Training apiUrl={RAILWAY_API_URL} />} />
               <Route path="/contact" element={<Contact />} />
             </Routes>
           </div>
